@@ -1,18 +1,17 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import FeatureCards from "@/components/FeatureCards";
-import Founder from "@/components/Founder";
-import Footer from "@/components/Footer";
-import WhyChemicalWala from "@/components/WhyChemicalWala";
-import Subjects from "@/components/Subjects";
-import Stats from "@/components/Stats";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+
+import Hero from "@/components/home/Hero";
+import FeatureCards from "@/components/home/FeatureCards";
+import WhyChemicalWala from "@/components/home/WhyChemicalWala";
+import Subjects from "@/components/home/Subjects";
+import Founder from "@/components/home/Founder";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-950 text-white">
+    <main className="min-h-screen bg-[#020817] text-white">
       <Navbar />
       <Hero />
-      <Stats />
       <FeatureCards />
       <WhyChemicalWala />
       <Subjects />
