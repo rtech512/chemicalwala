@@ -1,21 +1,45 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { basicTest1 } from "@/data/questions/fluid-mechanics/basic-test-1";
+import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
-const questions = basicTest1;
+import { basicTest1 } from "@/data/questions/fluid-mechanics/basic-test-1";
+import { basicTest2 } from "@/data/questions/fluid-mechanics/basic-test-2";
+import { basicTest3 } from "@/data/questions/fluid-mechanics/basic-test-3";
+import QuizHeader from "@/components/quiz/QuizHeader";
+import QuestionCard from "@/components/quiz/QuestionCard";
+import QuestionPalette from "@/components/quiz/QuestionPalette";
+import QuizNavigation from "@/components/quiz/QuizNavigation";
+import SubmitDialog from "@/components/quiz/SubmitDialog";
+
+
 
 export default function QuizPage() {
+  const params = useParams();
+
+const test = params.test as string;
+
+const questions =
+  test === "test-3"
+    ? basicTest3
+    : test === "test-2"
+    ? basicTest2
+    : basicTest1;
+
+  const router = useRouter();
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [reviewQuestions, setReviewQuestions] = useState<number[]>([]);
   const [timeLeft, setTimeLeft] = useState(25 * 60);
+  const [submitOpen, setSubmitOpen] = useState(false);
 
   const current = questions[currentQuestion];
 
   useEffect(() => {
     if (timeLeft <= 0) {
-      alert("Time Over! Test Submitted.");
+      setSubmitOpen(true);
       return;
     }
 
@@ -25,9 +49,6 @@ export default function QuizPage() {
 
     return () => clearInterval(timer);
   }, [timeLeft]);
-
-  const minutes = Math.floor(timeLeft / 60);
-  const seconds = timeLeft % 60;
 
   const selectAnswer = (option: string) => {
     setAnswers((prev) => ({
@@ -68,124 +89,96 @@ export default function QuizPage() {
     nextQuestion();
   };
 
-return (
-  <main className="min-h-screen bg-[#06121f] text-white">
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#081726]">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <div>
-          <h1 className="text-2xl font-black">🧪 ChemicalWala Mock Test</h1>
-          <p className="text-sm text-slate-400">
-            Fluid Mechanics • Basic • Test 1
-          </p>
+ const submitTest = () => {
+  let correctCount = 0;
+
+  questions.forEach((question) => {
+    if (answers[question.id] === question.answer) {
+      correctCount++;
+    }
+  });
+
+  const answeredCount = Object.keys(answers).length;
+  const solutions = questions.map((question) => ({
+  id: question.id,
+  question: question.question,
+  userAnswer: answers[question.id] || "Not Answered",
+  correctAnswer: question.answer,
+  explanation: question.explanation,
+}));
+
+  const resultData = {
+    totalQuestions: questions.length,
+    answeredCount: answeredCount,
+    correctCount: correctCount,
+    wrongCount: answeredCount - correctCount,
+    skippedCount: questions.length - answeredCount,
+    timeTaken: 25 * 60 - timeLeft,
+    answers,
+    solutions,
+  };
+
+  localStorage.setItem("chemicalwala-result", JSON.stringify(resultData));
+
+  router.push("/mock-test/result");
+};
+
+  return (
+    <main className="min-h-screen bg-[#06121f] text-white">
+      <QuizHeader
+        subject="Fluid Mechanics"
+        level="Basic"
+      test={
+  test === "test-3"
+    ? "Test 3"
+    : test === "test-2"
+    ? "Test 2"
+    : "Test 1"
+}
+        timeLeft={timeLeft}
+      />
+
+      <div className="mx-auto grid max-w-7xl grid-cols-12 gap-6 p-6">
+        <div className="col-span-12 lg:col-span-9">
+          <QuestionCard
+            question={current}
+            questionNumber={currentQuestion + 1}
+            totalQuestions={questions.length}
+            selectedAnswer={answers[current.id]}
+            onSelectAnswer={selectAnswer}
+          />
+
+          <QuizNavigation
+            isFirstQuestion={currentQuestion === 0}
+            isLastQuestion={currentQuestion === questions.length - 1}
+            onPrevious={previousQuestion}
+            onNext={nextQuestion}
+            onReview={markForReview}
+            onClear={clearResponse}
+            onSubmit={() => setSubmitOpen(true)}
+          />
         </div>
 
-        <div className="rounded-xl bg-red-500 px-6 py-3 text-xl font-black">
-          ⏱️ {minutes}:{seconds.toString().padStart(2, "0")}
+        <div className="col-span-12 lg:col-span-3">
+          <QuestionPalette
+  totalQuestions={questions.length}
+  currentQuestion={currentQuestion}
+  answers={answers}
+  reviewQuestions={reviewQuestions}
+  onQuestionChange={setCurrentQuestion}
+  onSubmit={() => setSubmitOpen(true)}
+/>
         </div>
       </div>
-    </header>
 
-    <div className="mx-auto grid max-w-7xl grid-cols-12 gap-6 p-6">
-      <div className="col-span-9 rounded-3xl bg-slate-800 p-8">
-        <div className="mb-6">
-          <span className="rounded-full bg-cyan-500 px-4 py-2 text-sm font-bold text-black">
-            Question {currentQuestion + 1} / {questions.length}
-          </span>
-        </div>
-
-        <h2 className="text-2xl font-bold">{current.question}</h2>
-
-        <div className="mt-8 space-y-4">
-          {current.options.map((option) => {
-            const selected = answers[current.id] === option;
-
-            return (
-              <button
-                key={option}
-                onClick={() => selectAnswer(option)}
-                className={`w-full rounded-xl border p-5 text-left font-semibold transition ${
-                  selected
-                    ? "border-cyan-400 bg-cyan-500 text-black"
-                    : "border-slate-600 hover:border-cyan-400 hover:bg-cyan-500/10"
-                }`}
-              >
-                {option}
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="mt-10 flex flex-wrap gap-4">
-          <button
-            onClick={previousQuestion}
-            disabled={currentQuestion === 0}
-            className="rounded-xl bg-slate-700 px-6 py-3 font-bold disabled:opacity-40"
-          >
-            Previous
-          </button>
-
-          <button
-            onClick={clearResponse}
-            className="rounded-xl bg-red-500 px-6 py-3 font-bold"
-          >
-            Clear Response
-          </button>
-
-          <button
-            onClick={markForReview}
-            className="rounded-xl bg-yellow-500 px-6 py-3 font-bold text-black"
-          >
-            Mark for Review
-          </button>
-
-          <button
-            onClick={nextQuestion}
-            className="rounded-xl bg-cyan-500 px-6 py-3 font-bold text-black"
-          >
-            Save & Next
-          </button>
-        </div>
-      </div>
-
-      <div className="col-span-3 rounded-3xl bg-slate-800 p-6">
-  <h3 className="mb-5 text-xl font-bold">Questions</h3>
-
-  <div className="grid grid-cols-5 gap-3">
-    {questions.map((question, index) => (
-      <button
-        key={question.id}
-        onClick={() => setCurrentQuestion(index)}
-        className={`h-12 rounded-lg font-bold transition ${
-          currentQuestion === index
-            ? "bg-cyan-500 text-black"
-            : reviewQuestions.includes(question.id)
-            ? "bg-yellow-500 text-black"
-            : answers[question.id]
-            ? "bg-green-500 text-black"
-            : "bg-slate-700 hover:bg-slate-600"
-        }`}
-      >
-        {index + 1}
-      </button>
-    ))}
-  </div>
-
-  <div className="mt-6 space-y-2 text-sm text-slate-300">
-    <p>🟦 Current</p>
-    <p>🟩 Answered</p>
-    <p>🟨 Review</p>
-    <p>⬛ Not Answered</p>
-  </div>
-
-   <button
-    onClick={() => alert("Test Submitted")}
-    className="mt-8 w-full rounded-xl bg-red-500 py-4 text-lg font-black"
-  >
-    Submit Test
-  </button>
-</div>
-
-</div>
-</main>
-);
+      <SubmitDialog
+        open={submitOpen}
+        totalQuestions={questions.length}
+        answeredCount={Object.keys(answers).length}
+        reviewCount={reviewQuestions.length}
+        onCancel={() => setSubmitOpen(false)}
+        onConfirm={submitTest}
+      />
+    </main>
+  );
 }
