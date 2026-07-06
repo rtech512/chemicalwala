@@ -1,33 +1,61 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useParams } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 
 import { basicTest1 } from "@/data/questions/fluid-mechanics/basic-test-1";
 import { basicTest2 } from "@/data/questions/fluid-mechanics/basic-test-2";
 import { basicTest3 } from "@/data/questions/fluid-mechanics/basic-test-3";
+
+import { intermediateTest1 } from "@/data/questions/fluid-mechanics/intermediate-test-1";
+import { intermediateTest2 } from "@/data/questions/fluid-mechanics/intermediate-test-2";
+import { intermediateTest3 } from "@/data/questions/fluid-mechanics/intermediate-test-3";
+
+import { advancedTest1 } from "@/data/questions/fluid-mechanics/advanced-test-1";
+import { advancedTest2 } from "@/data/questions/fluid-mechanics/advanced-test-2";
+import { advancedTest3 } from "@/data/questions/fluid-mechanics/advanced-test-3";
+
 import QuizHeader from "@/components/quiz/QuizHeader";
 import QuestionCard from "@/components/quiz/QuestionCard";
 import QuestionPalette from "@/components/quiz/QuestionPalette";
 import QuizNavigation from "@/components/quiz/QuizNavigation";
 import SubmitDialog from "@/components/quiz/SubmitDialog";
 
-
-
 export default function QuizPage() {
+  const router = useRouter();
   const params = useParams();
 
-const test = params.test as string;
+  const levelParam = params.level as string;
+  const test = params.test as string;
 
-const questions =
-  test === "test-3"
-    ? basicTest3
-    : test === "test-2"
-    ? basicTest2
-    : basicTest1;
+  const questions =
+    levelParam === "advanced" && test === "test-3"
+      ? advancedTest3
+      : levelParam === "advanced" && test === "test-2"
+      ? advancedTest2
+      : levelParam === "advanced" && test === "test-1"
+      ? advancedTest1
+      : levelParam === "intermediate" && test === "test-3"
+      ? intermediateTest3
+      : levelParam === "intermediate" && test === "test-2"
+      ? intermediateTest2
+      : levelParam === "intermediate" && test === "test-1"
+      ? intermediateTest1
+      : test === "test-3"
+      ? basicTest3
+      : test === "test-2"
+      ? basicTest2
+      : basicTest1;
 
-  const router = useRouter();
+  const level =
+    levelParam === "advanced"
+      ? "Advanced"
+      : levelParam === "intermediate"
+      ? "Intermediate"
+      : "Basic";
+
+  const testName =
+    test === "test-3" ? "Test 3" : test === "test-2" ? "Test 2" : "Test 1";
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
@@ -49,6 +77,10 @@ const questions =
 
     return () => clearInterval(timer);
   }, [timeLeft]);
+
+  const getCorrectAnswer = (question: any) => {
+    return question.answer || question.correctAnswer;
+  };
 
   const selectAnswer = (option: string) => {
     setAnswers((prev) => ({
@@ -76,9 +108,7 @@ const questions =
       return updated;
     });
 
-    setReviewQuestions((prev) =>
-      prev.filter((id) => id !== current.id)
-    );
+    setReviewQuestions((prev) => prev.filter((id) => id !== current.id));
   };
 
   const markForReview = () => {
@@ -89,52 +119,46 @@ const questions =
     nextQuestion();
   };
 
- const submitTest = () => {
-  let correctCount = 0;
+  const submitTest = () => {
+    let correctCount = 0;
 
-  questions.forEach((question) => {
-    if (answers[question.id] === question.answer) {
-      correctCount++;
-    }
-  });
+    questions.forEach((question) => {
+      if (answers[question.id] === getCorrectAnswer(question)) {
+        correctCount++;
+      }
+    });
 
-  const answeredCount = Object.keys(answers).length;
-  const solutions = questions.map((question) => ({
-  id: question.id,
-  question: question.question,
-  userAnswer: answers[question.id] || "Not Answered",
-  correctAnswer: question.answer,
-  explanation: question.explanation,
-}));
+    const answeredCount = Object.keys(answers).length;
 
-  const resultData = {
-    totalQuestions: questions.length,
-    answeredCount: answeredCount,
-    correctCount: correctCount,
-    wrongCount: answeredCount - correctCount,
-    skippedCount: questions.length - answeredCount,
-    timeTaken: 25 * 60 - timeLeft,
-    answers,
-    solutions,
+    const solutions = questions.map((question) => ({
+      id: question.id,
+      question: question.question,
+      userAnswer: answers[question.id] || "Not Answered",
+      correctAnswer: getCorrectAnswer(question),
+      explanation: question.explanation,
+    }));
+
+    const resultData = {
+      totalQuestions: questions.length,
+      answeredCount,
+      correctCount,
+      wrongCount: answeredCount - correctCount,
+      skippedCount: questions.length - answeredCount,
+      timeTaken: 25 * 60 - timeLeft,
+      answers,
+      solutions,
+    };
+
+    localStorage.setItem("chemicalwala-result", JSON.stringify(resultData));
+    router.push("/mock-test/result");
   };
-
-  localStorage.setItem("chemicalwala-result", JSON.stringify(resultData));
-
-  router.push("/mock-test/result");
-};
 
   return (
     <main className="min-h-screen bg-[#06121f] text-white">
       <QuizHeader
         subject="Fluid Mechanics"
-        level="Basic"
-      test={
-  test === "test-3"
-    ? "Test 3"
-    : test === "test-2"
-    ? "Test 2"
-    : "Test 1"
-}
+        level={level}
+        test={testName}
         timeLeft={timeLeft}
       />
 
@@ -161,13 +185,13 @@ const questions =
 
         <div className="col-span-12 lg:col-span-3">
           <QuestionPalette
-  totalQuestions={questions.length}
-  currentQuestion={currentQuestion}
-  answers={answers}
-  reviewQuestions={reviewQuestions}
-  onQuestionChange={setCurrentQuestion}
-  onSubmit={() => setSubmitOpen(true)}
-/>
+            totalQuestions={questions.length}
+            currentQuestion={currentQuestion}
+            answers={answers}
+            reviewQuestions={reviewQuestions}
+            onQuestionChange={setCurrentQuestion}
+            onSubmit={() => setSubmitOpen(true)}
+          />
         </div>
       </div>
 

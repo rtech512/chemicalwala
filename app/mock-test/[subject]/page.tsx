@@ -41,12 +41,21 @@ export default async function SubjectPage({
   return (
     <main className="min-h-screen bg-[#071521] px-6 py-20 text-white">
       <div className="mx-auto max-w-6xl">
-        <Link
-          href="/mock-test"
-          className="text-cyan-400 hover:underline"
-        >
-          ← Back
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/"
+            className="rounded-xl border border-cyan-500/40 bg-cyan-500/10 px-4 py-2 font-semibold text-cyan-400 transition hover:bg-cyan-500 hover:text-black"
+          >
+            🏠 Home
+          </Link>
+
+          <Link
+            href="/mock-test"
+            className="rounded-xl border border-slate-600 bg-slate-800 px-4 py-2 font-semibold text-slate-200 transition hover:bg-slate-700"
+          >
+            ← Back
+          </Link>
+        </div>
 
         <h1 className="mt-6 text-5xl font-black">
           {currentSubject.icon} {currentSubject.name}
