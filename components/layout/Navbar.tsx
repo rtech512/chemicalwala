@@ -10,7 +10,7 @@ const links = [
   { name: "Courses", href: "/courses" },
   { name: "Notes", href: "/notes" },
   { name: "MCQ", href: "/mcq" },
-  { name: "Mock Test", href: "/mock-test" },
+ { name: "Mock Test", href: "/mock-test/enroll" },
   { name: "PSU", href: "/psu" },
 ];
 

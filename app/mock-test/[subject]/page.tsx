@@ -41,6 +41,7 @@ export default async function SubjectPage({
   return (
     <main className="min-h-screen bg-[#071521] px-6 py-20 text-white">
       <div className="mx-auto max-w-6xl">
+
         <div className="flex items-center gap-3">
           <Link
             href="/"
@@ -57,13 +58,15 @@ export default async function SubjectPage({
           </Link>
         </div>
 
-        <h1 className="mt-6 text-5xl font-black">
-          {currentSubject.icon} {currentSubject.name}
-        </h1>
+        <div className="mt-10">
+          <h1 className="text-5xl font-black">
+            {currentSubject.icon} {currentSubject.name}
+          </h1>
 
-        <p className="mt-3 text-slate-300">
-          Select your difficulty level.
-        </p>
+          <p className="mt-3 text-slate-300">
+            Select your difficulty level.
+          </p>
+        </div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {levels.map((level) => (
@@ -87,6 +90,7 @@ export default async function SubjectPage({
             </div>
           ))}
         </div>
+
       </div>
     </main>
   );
