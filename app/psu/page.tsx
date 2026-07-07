@@ -7,26 +7,10 @@ const psus = [
     icon: "⛽",
     slug: "hpcl",
     branches: [
-      {
-        name: "Chemical Engineering",
-        icon: "⚗️",
-        slug: "chemical",
-      },
-      {
-        name: "Mechanical Engineering",
-        icon: "⚙️",
-        slug: "mechanical",
-      },
-      {
-        name: "Electrical Engineering",
-        icon: "⚡",
-        slug: "electrical",
-      },
-      {
-        name: "Civil Engineering",
-        icon: "🏗️",
-        slug: "civil",
-      },
+      { name: "Chemical Engineering", icon: "⚗️", slug: "chemical" },
+      { name: "Mechanical Engineering", icon: "⚙️", slug: "mechanical" },
+      { name: "Electrical Engineering", icon: "⚡", slug: "electrical" },
+      { name: "Civil Engineering", icon: "🏗️", slug: "civil" },
     ],
   },
   {
@@ -35,21 +19,9 @@ const psus = [
     icon: "🛢️",
     slug: "iocl",
     branches: [
-      {
-        name: "Chemical Engineering",
-        icon: "⚗️",
-        slug: "chemical",
-      },
-      {
-        name: "Mechanical Engineering",
-        icon: "⚙️",
-        slug: "mechanical",
-      },
-      {
-        name: "Electrical Engineering",
-        icon: "⚡",
-        slug: "electrical",
-      },
+      { name: "Chemical Engineering", icon: "⚗️", slug: "chemical" },
+      { name: "Mechanical Engineering", icon: "⚙️", slug: "mechanical" },
+      { name: "Electrical Engineering", icon: "⚡", slug: "electrical" },
     ],
   },
   {
@@ -58,16 +30,8 @@ const psus = [
     icon: "🏭",
     slug: "nfl",
     branches: [
-      {
-        name: "Chemical Engineering",
-        icon: "⚗️",
-        slug: "chemical",
-      },
-      {
-        name: "Mechanical Engineering",
-        icon: "⚙️",
-        slug: "mechanical",
-      },
+      { name: "Chemical Engineering", icon: "⚗️", slug: "chemical" },
+      { name: "Mechanical Engineering", icon: "⚙️", slug: "mechanical" },
     ],
   },
 ];

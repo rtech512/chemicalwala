@@ -33,10 +33,7 @@ export default async function PSUTestSeriesPage({
   const psuName = psuNames[psu];
   const branchName = branchNames[branch];
 
-  const isValid =
-    psuName &&
-    branchName &&
-    validBranches[psu]?.includes(branch);
+  const isValid = psuName && branchName && validBranches[psu]?.includes(branch);
 
   if (!isValid) {
     notFound();
@@ -91,45 +88,57 @@ export default async function PSUTestSeriesPage({
               </h2>
 
               {psu === "hpcl" ? (
-  <div className="mt-6 grid grid-cols-3 gap-3">
-    <div className="rounded-xl bg-white/5 p-3">
-      <div className="text-2xl font-black text-white">
-        170
-      </div>
-      <div className="mt-1 text-sm text-slate-400">
-        Questions
-      </div>
-    </div>
+                <div className="mt-6 grid grid-cols-3 gap-3">
+                  <div className="rounded-xl bg-white/5 p-3">
+                    <div className="text-2xl font-black text-white">170</div>
+                    <div className="mt-1 text-sm text-slate-400">
+                      Questions
+                    </div>
+                  </div>
 
-    <div className="rounded-xl bg-white/5 p-3">
-      <div className="text-2xl font-black text-white">
-        170
-      </div>
-      <div className="mt-1 text-sm text-slate-400">
-        Marks
-      </div>
-    </div>
+                  <div className="rounded-xl bg-white/5 p-3">
+                    <div className="text-2xl font-black text-white">170</div>
+                    <div className="mt-1 text-sm text-slate-400">Marks</div>
+                  </div>
 
-    <div className="rounded-xl bg-white/5 p-3">
-      <div className="text-2xl font-black text-white">
-        150
-      </div>
-      <div className="mt-1 text-sm text-slate-400">
-        Minutes
-      </div>
-    </div>
-  </div>
-) : (
-  <p className="mt-3 text-slate-400">
-    Full-length mock test with result and solutions.
-  </p>
-)}
+                  <div className="rounded-xl bg-white/5 p-3">
+                    <div className="text-2xl font-black text-white">150</div>
+                    <div className="mt-1 text-sm text-slate-400">Minutes</div>
+                  </div>
+                </div>
+              ) : (
+                <p className="mt-3 text-slate-400">
+                  Full-length mock test with result and solutions.
+                </p>
+              )}
 
               <div className="mt-6 rounded-xl bg-cyan-500 py-3 text-center font-bold text-black transition group-hover:bg-cyan-400">
                 Start Test →
               </div>
             </Link>
           ))}
+
+          <Link
+            href={`/psu/previous-year/${psu}`}
+            className="group rounded-3xl border border-yellow-400/40 bg-slate-900 p-7 transition duration-300 hover:-translate-y-1 hover:border-yellow-300 hover:shadow-lg hover:shadow-yellow-500/10"
+          >
+            <div className="text-sm font-bold uppercase tracking-wider text-yellow-300">
+              Previous Year Paper
+            </div>
+
+            <h2 className="mt-3 text-2xl font-black text-white">
+              {psuName} Previous Papers
+            </h2>
+
+            <p className="mt-4 text-sm leading-6 text-slate-400">
+              Download previous year paper PDFs and practice with real exam
+              questions.
+            </p>
+
+            <div className="mt-6 rounded-xl bg-yellow-400 py-3 text-center font-bold text-black transition group-hover:bg-yellow-300">
+              Open Papers →
+            </div>
+          </Link>
         </div>
       </div>
     </main>

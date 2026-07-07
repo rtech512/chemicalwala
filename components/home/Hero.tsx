@@ -9,7 +9,7 @@ export default function Hero() {
     <section className="relative min-h-screen overflow-hidden bg-[#020817] text-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(0,200,255,0.28),transparent_35%),radial-gradient(circle_at_15%_70%,rgba(37,99,235,0.35),transparent_35%)]" />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-6 pb-12 pt-20 lg:grid-cols-[0.9fr_1.1fr] lg:px-8">
+      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-6 pb-12 pt-8 sm:pt-12 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:pt-20">
         <motion.div initial={{ opacity: 0, y: 35 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-cyan-400/50 bg-cyan-400/10 px-5 py-3 text-xs font-black text-cyan-300">
             <Sparkles size={15} />
