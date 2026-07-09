@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 type ResultData = {
   total: number;
@@ -16,18 +16,27 @@ type ResultData = {
 
 export default function HpclMechanicalResultPage() {
   const router = useRouter();
+  const params = useParams();
+const branch = params.branch as string;
+  const test = params.test as string;
+  const testTitle = test.replace("test-", "Test ");
+const resultKey =
+  branch === "chemical"
+    ? `hpclChemical${test}Result`
+    : `hpclMechanical${test}Result`;
+
   const [result, setResult] = useState<ResultData | null>(null);
 
   useEffect(() => {
-    const saved = sessionStorage.getItem("hpclMechanicalTest1Result");
+    const saved = sessionStorage.getItem(resultKey);
     if (saved) {
       setResult(JSON.parse(saved));
     }
-  }, []);
+  }, [resultKey]);
 
   const handleRetakeTest = () => {
-    sessionStorage.removeItem("hpclMechanicalTest1Result");
-    router.push("/psu/hpcl/mechanical/test-1/quiz");
+    sessionStorage.removeItem(resultKey);
+router.push(`/psu/hpcl/${branch}/${test}/quiz`);
   };
 
   if (!result) {
@@ -53,7 +62,9 @@ export default function HpclMechanicalResultPage() {
   return (
     <main className="min-h-screen bg-[#071521] px-6 py-20 text-white">
       <div className="mx-auto max-w-4xl rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
-        <h1 className="text-3xl font-bold">HPCL Mechanical Test 1 Result</h1>
+        <h1 className="text-3xl font-bold">
+          HPCL {branch === "chemical" ? "Chemical" : "Mechanical"} {testTitle} Result
+        </h1>
 
         <div className="mt-8 text-6xl font-bold text-green-400">
           {percentage}%
@@ -91,7 +102,7 @@ export default function HpclMechanicalResultPage() {
 
         <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
           <Link
-            href="/psu/hpcl/mechanical/test-1/solutions"
+          href={`/psu/hpcl/${branch}/${test}/solutions`}
             className="rounded-xl bg-green-500 px-6 py-3 font-semibold text-black transition hover:bg-green-400"
           >
             Review Solutions
@@ -104,12 +115,12 @@ export default function HpclMechanicalResultPage() {
             Retake Test
           </button>
 
-         <Link
-  href="/psu/hpcl/mechanical"
-  className="rounded-xl border border-white/20 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
->
-  Back to Mechanical Tests
-</Link>
+          <Link
+            href={`/psu/hpcl/${branch}`}
+            className="rounded-xl border border-white/20 px-6 py-3 font-semibold text-white transition hover:bg-white/10"
+          >
+            Back to {branch === "chemical" ? "Chemical" : "Mechanical"} Tests
+          </Link>
         </div>
       </div>
     </main>

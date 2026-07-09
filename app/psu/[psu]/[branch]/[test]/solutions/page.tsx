@@ -2,9 +2,18 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 
 import { hpclMechanicalTest1 } from "@/data/psu/hpcl/mechanical/test-1";
+import { hpclMechanicalTest2 } from "@/data/psu/hpcl/mechanical/test-2";
+import { hpclMechanicalTest3 } from "@/data/psu/hpcl/mechanical/test-3";
+import { hpclMechanicalTest4 } from "@/data/psu/hpcl/mechanical/test-4";
+import { hpclMechanicalTest5 } from "@/data/psu/hpcl/mechanical/test-5";
+import { hpclChemicalTest1 } from "@/data/psu/hpcl/chemical/test-1";
+import { hpclChemicalTest2 } from "@/data/psu/hpcl/chemical/test-2";
+import { hpclChemicalTest3 } from "@/data/psu/hpcl/chemical/test-3";
+import { hpclChemicalTest4 } from "@/data/psu/hpcl/chemical/test-4";
+import { hpclChemicalTest5 } from "@/data/psu/hpcl/chemical/test-5";
 
 type ResultData = {
   total: number;
@@ -23,15 +32,43 @@ export default function SolutionsPage() {
   const branch = params.branch as string;
   const test = params.test as string;
 
+const testTitle = test.replace("test-", "Test ");
+const resultKey =
+  branch === "chemical"
+    ? `hpclChemical${test}Result`
+    : `hpclMechanical${test}Result`;
+
+  const mechanicalTestDataMap: Record<string, any[]> = {
+  "test-1": hpclMechanicalTest1,
+  "test-2": hpclMechanicalTest2,
+  "test-3": hpclMechanicalTest3,
+  "test-4": hpclMechanicalTest4,
+  "test-5": hpclMechanicalTest5,
+};
+
+const chemicalTestDataMap: Record<string, any[]> = {
+  "test-1": hpclChemicalTest1,
+  "test-2": hpclChemicalTest2,
+  "test-3": hpclChemicalTest3,
+  "test-4": hpclChemicalTest4,
+  "test-5": hpclChemicalTest5,
+};
+  
+
+  const questions =
+  branch === "chemical"
+    ? chemicalTestDataMap[test] || hpclChemicalTest1
+    : mechanicalTestDataMap[test] || hpclMechanicalTest1;
+
   const [result, setResult] = useState<ResultData | null>(null);
 
   useEffect(() => {
-    const saved = sessionStorage.getItem("hpclMechanicalTest1Result");
+    const saved = sessionStorage.getItem(resultKey);
 
     if (saved) {
       setResult(JSON.parse(saved));
     }
-  }, []);
+  }, [resultKey]);
 
   if (!result) {
     return (
@@ -49,7 +86,7 @@ export default function SolutionsPage() {
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-3xl font-bold">
-              HPCL Mechanical Test 1 Solutions
+              HPCL {branch === "chemical" ? "Chemical" : "Mechanical"} {testTitle} Solutions
             </h1>
 
             <p className="mt-2 text-gray-400">
@@ -66,7 +103,7 @@ export default function SolutionsPage() {
         </div>
 
         <div className="space-y-6">
-          {hpclMechanicalTest1.map((question, index) => {
+          {questions.map((question, index) => {
             const userAnswer = result.answers[question.id];
             const isCorrect = userAnswer === question.correctAnswer;
             const isSkipped = !userAnswer;
@@ -87,7 +124,7 @@ export default function SolutionsPage() {
                 </div>
 
                 <div className="space-y-3">
-                  {question.options.map((option) => {
+                  {question.options.map((option: string) => {
                     const isCorrectOption =
                       option === question.correctAnswer;
 

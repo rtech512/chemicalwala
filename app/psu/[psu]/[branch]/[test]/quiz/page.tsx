@@ -1,35 +1,75 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { hpclMechanicalTest1 } from "@/data/psu/hpcl/mechanical/test-1";
+import { hpclMechanicalTest2 } from "@/data/psu/hpcl/mechanical/test-2";
+import { hpclMechanicalTest3 } from "@/data/psu/hpcl/mechanical/test-3";
+import { hpclMechanicalTest4 } from "@/data/psu/hpcl/mechanical/test-4";
+import { hpclMechanicalTest5 } from "@/data/psu/hpcl/mechanical/test-5";
+import { hpclChemicalTest1 } from "@/data/psu/hpcl/chemical/test-1";
+import { hpclChemicalTest2 } from "@/data/psu/hpcl/chemical/test-2";
+import { hpclChemicalTest3 } from "@/data/psu/hpcl/chemical/test-3";
+import { hpclChemicalTest4 } from "@/data/psu/hpcl/chemical/test-4";
+import { hpclChemicalTest5 } from "@/data/psu/hpcl/chemical/test-5";
 
 export default function HpclMechanicalQuizPage() {
   const router = useRouter();
-  const questions = hpclMechanicalTest1;
+  const params = useParams();
+const branch = params.branch as string;
+  const test = params.test as string;
+
+const mechanicalTestDataMap: Record<string, any[]> = {
+  "test-1": hpclMechanicalTest1,
+  "test-2": hpclMechanicalTest2,
+  "test-3": hpclMechanicalTest3,
+  "test-4": hpclMechanicalTest4,
+  "test-5": hpclMechanicalTest5,
+};
+
+const chemicalTestDataMap: Record<string, any[]> = {
+  "test-1": hpclChemicalTest1,
+  "test-2": hpclChemicalTest2,
+  "test-3": hpclChemicalTest3,
+  "test-4": hpclChemicalTest4,
+  "test-5": hpclChemicalTest5,
+};
+
+const questions =
+  branch === "chemical"
+    ? chemicalTestDataMap[test] || hpclChemicalTest1
+    : mechanicalTestDataMap[test] || hpclMechanicalTest1;
+  
+const branchTitle = branch === "chemical" ? "Chemical" : "Mechanical";
+ const testTitle = test.replace("test-", "Test ");
+ const resultKey =
+  branch === "chemical"
+    ? `hpclChemical${test}Result`
+    : `hpclMechanical${test}Result`;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [review, setReview] = useState<number[]>([]);
   const [timeLeft, setTimeLeft] = useState(150 * 60);
   const [submitOpen, setSubmitOpen] = useState(false);
 
-useEffect(() => {
-  if (timeLeft <= 0) return;
+  useEffect(() => {
+    if (timeLeft <= 0) return;
 
-  const timer = setInterval(() => {
-    setTimeLeft((prev) => prev - 1);
-  }, 1000);
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
 
-  return () => clearInterval(timer);
-}, [timeLeft]);
+    return () => clearInterval(timer);
+  }, [timeLeft]);
 
-const hours = Math.floor(timeLeft / 3600);
-const minutes = Math.floor((timeLeft % 3600) / 60);
-const seconds = timeLeft % 60;
+  const hours = Math.floor(timeLeft / 3600);
+  const minutes = Math.floor((timeLeft % 3600) / 60);
+  const seconds = timeLeft % 60;
 
-const formattedTime = `${String(hours).padStart(2, "0")}:${String(
-  minutes
-).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  const formattedTime = `${String(hours).padStart(2, "0")}:${String(
+    minutes
+  ).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
   const current = questions[currentIndex];
 
@@ -59,37 +99,39 @@ const formattedTime = `${String(hours).padStart(2, "0")}:${String(
       return copy;
     });
   }
-function handleFinalSubmit() {
-  let correct = 0;
 
-  questions.forEach((q) => {
-    if (answers[q.id] === q.correctAnswer) {
-      correct++;
-    }
-  });
+  function handleFinalSubmit() {
+    let correct = 0;
 
-  const attempted = Object.keys(answers).length;
-  const wrong = attempted - correct;
-  const skipped = questions.length - attempted;
-  const timeTaken = 150 * 60 - timeLeft;
+    questions.forEach((q) => {
+      if (answers[q.id] === q.correctAnswer) {
+        correct++;
+      }
+    });
 
-  const result = {
-    total: questions.length,
-    correct,
-    wrong,
-    skipped,
-    attempted,
-    timeTaken,
-    answers,
-  };
+    const attempted = Object.keys(answers).length;
+    const wrong = attempted - correct;
+    const skipped = questions.length - attempted;
+    const timeTaken = 150 * 60 - timeLeft;
 
-  sessionStorage.setItem(
-    "hpclMechanicalTest1Result",
-    JSON.stringify(result)
-  );
+    const result = {
+      total: questions.length,
+      correct,
+      wrong,
+      skipped,
+      attempted,
+      timeTaken,
+      answers,
+    };
 
-  router.push("/psu/hpcl/mechanical/test-1/result");
-}
+   sessionStorage.setItem(
+  resultKey,
+  JSON.stringify(result)
+);
+
+  router.push(`/psu/hpcl/${branch}/${test}/result`);
+  }
+
   return (
     <main className="min-h-screen bg-[#071521] text-white">
       <div className="mx-auto max-w-7xl px-4 py-6">
@@ -97,7 +139,7 @@ function handleFinalSubmit() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <h1 className="text-2xl font-bold">
-                HPCL Mechanical Test 1
+              HPCL {branchTitle} {testTitle}
               </h1>
               <p className="text-sm text-gray-300">
                 170 Questions • 150 Minutes • Previous Paper Similar Level
@@ -126,7 +168,7 @@ function handleFinalSubmit() {
             </h2>
 
             <div className="space-y-3">
-              {current.options.map((option) => (
+              {current.options.map((option: string) => (
                 <button
                   key={option}
                   onClick={() => selectAnswer(option)}
@@ -213,73 +255,72 @@ function handleFinalSubmit() {
             </div>
 
             <button
-  onClick={() => setSubmitOpen(true)}
-  className="mt-6 w-full rounded-xl bg-red-600 py-3 font-bold hover:bg-red-500"
->
-  Submit Test
-</button>
+              onClick={() => setSubmitOpen(true)}
+              className="mt-6 w-full rounded-xl bg-red-600 py-3 font-bold hover:bg-red-500"
+            >
+              Submit Test
+            </button>
           </aside>
         </div>
       </div>
+
       {submitOpen && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4">
-    <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0b2033] p-6 shadow-2xl">
-      <h2 className="text-2xl font-bold text-white">
-        Submit Test?
-      </h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4">
+          <div className="w-full max-w-md rounded-2xl border border-white/10 bg-[#0b2033] p-6 shadow-2xl">
+            <h2 className="text-2xl font-bold text-white">Submit Test?</h2>
 
-      <p className="mt-2 text-sm text-gray-300">
-        Please review your attempt summary before final submission.
-      </p>
+            <p className="mt-2 text-sm text-gray-300">
+              Please review your attempt summary before final submission.
+            </p>
 
-      <div className="mt-6 grid grid-cols-2 gap-3">
-        <div className="rounded-xl bg-blue-500/20 p-4">
-          <p className="text-sm text-gray-300">Total</p>
-          <p className="mt-1 text-2xl font-bold text-white">
-            {questions.length}
-          </p>
+            <div className="mt-6 grid grid-cols-2 gap-3">
+              <div className="rounded-xl bg-blue-500/20 p-4">
+                <p className="text-sm text-gray-300">Total</p>
+                <p className="mt-1 text-2xl font-bold text-white">
+                  {questions.length}
+                </p>
+              </div>
+
+              <div className="rounded-xl bg-green-500/20 p-4">
+                <p className="text-sm text-gray-300">Answered</p>
+                <p className="mt-1 text-2xl font-bold text-green-400">
+                  {answeredCount}
+                </p>
+              </div>
+
+              <div className="rounded-xl bg-red-500/20 p-4">
+                <p className="text-sm text-gray-300">Not Answered</p>
+                <p className="mt-1 text-2xl font-bold text-red-400">
+                  {notAnsweredCount}
+                </p>
+              </div>
+
+              <div className="rounded-xl bg-yellow-500/20 p-4">
+                <p className="text-sm text-gray-300">Marked Review</p>
+                <p className="mt-1 text-2xl font-bold text-yellow-400">
+                  {reviewCount}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6 flex gap-3">
+              <button
+                onClick={() => setSubmitOpen(false)}
+                className="flex-1 rounded-xl bg-gray-700 py-3 font-semibold text-white hover:bg-gray-600"
+              >
+                Continue Test
+              </button>
+
+              <button
+                onClick={handleFinalSubmit}
+                className="flex-1 rounded-xl bg-red-600 py-3 font-bold text-white hover:bg-red-500"
+              >
+                Final Submit
+              </button>
+            </div>
+          </div>
         </div>
-
-        <div className="rounded-xl bg-green-500/20 p-4">
-          <p className="text-sm text-gray-300">Answered</p>
-          <p className="mt-1 text-2xl font-bold text-green-400">
-            {answeredCount}
-          </p>
-        </div>
-
-        <div className="rounded-xl bg-red-500/20 p-4">
-          <p className="text-sm text-gray-300">Not Answered</p>
-          <p className="mt-1 text-2xl font-bold text-red-400">
-            {notAnsweredCount}
-          </p>
-        </div>
-
-        <div className="rounded-xl bg-yellow-500/20 p-4">
-          <p className="text-sm text-gray-300">Marked Review</p>
-          <p className="mt-1 text-2xl font-bold text-yellow-400">
-            {reviewCount}
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-6 flex gap-3">
-        <button
-          onClick={() => setSubmitOpen(false)}
-          className="flex-1 rounded-xl bg-gray-700 py-3 font-semibold text-white hover:bg-gray-600"
-        >
-          Continue Test
-        </button>
-
-       <button
-  onClick={handleFinalSubmit}
-  className="flex-1 rounded-xl bg-red-600 py-3 font-bold text-white hover:bg-red-500"
->
-  Final Submit
-</button>
-      </div>
-    </div>
-  </div>
-)}
+      )}
     </main>
   );
 }
