@@ -40,6 +40,7 @@ const questions =
     ? chemicalTestDataMap[test] || hpclChemicalTest1
     : mechanicalTestDataMap[test] || hpclMechanicalTest1;
   
+    
 const branchTitle = branch === "chemical" ? "Chemical" : "Mechanical";
  const testTitle = test.replace("test-", "Test ");
  const resultKey =
