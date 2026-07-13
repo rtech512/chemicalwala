@@ -9,7 +9,7 @@ export const intermediateTest2 = [
       "Remains constant",
       "Becomes zero",
     ],
-    correctAnswer: "Increases",
+    answer: "Increases",
     explanation:
       "For steady incompressible flow, continuity gives A₁V₁ = A₂V₂. Therefore, a decrease in area causes an increase in average velocity.",
   },
@@ -23,7 +23,7 @@ export const intermediateTest2 = [
       "Total acceleration of a fluid particle",
       "Pressure acceleration only",
     ],
-    correctAnswer: "Total acceleration of a fluid particle",
+    answer: "Total acceleration of a fluid particle",
     explanation:
       "The material derivative combines local and convective acceleration and gives the total acceleration experienced by a moving fluid particle.",
   },
@@ -37,7 +37,7 @@ export const intermediateTest2 = [
       "Centripetal acceleration",
       "Tangential acceleration",
     ],
-    correctAnswer: "Local acceleration",
+    answer: "Local acceleration",
     explanation:
       "In steady flow, velocity at a fixed point does not change with time, so the local acceleration term ∂V/∂t is zero.",
   },
@@ -51,7 +51,7 @@ export const intermediateTest2 = [
       "Zero velocity gradient",
       "Constant density only",
     ],
-    correctAnswer: "Convective acceleration",
+    answer: "Convective acceleration",
     explanation:
       "In steady non-uniform flow, velocity changes from one position to another, producing convective acceleration.",
   },
@@ -65,7 +65,7 @@ export const intermediateTest2 = [
       "∂T/∂t + V · ∇T",
       "∂T/∂t - V · ∇T",
     ],
-    correctAnswer: "∂T/∂t + V · ∇T",
+    answer: "∂T/∂t + V · ∇T",
     explanation:
       "The substantial derivative DT/Dt includes both local change and convective transport of the scalar property.",
   },
@@ -79,7 +79,7 @@ export const intermediateTest2 = [
       "Infinite",
       "Equal to normal strain",
     ],
-    correctAnswer: "Zero",
+    answer: "Zero",
     explanation:
       "Pure translation changes only the position of a fluid element without rotation or deformation.",
   },
@@ -93,7 +93,7 @@ export const intermediateTest2 = [
       "Curl of velocity",
       "Laplacian of pressure",
     ],
-    correctAnswer: "Curl of velocity",
+    answer: "Curl of velocity",
     explanation:
       "Vorticity is defined as ω = ∇ × V, the curl of the velocity field.",
   },
@@ -107,7 +107,7 @@ export const intermediateTest2 = [
       "Angular velocity = vorticity / 2",
       "Angular velocity = square of vorticity",
     ],
-    correctAnswer: "Angular velocity = vorticity / 2",
+    answer: "Angular velocity = vorticity / 2",
     explanation:
       "The local angular velocity vector of a fluid element is one-half of the vorticity vector.",
   },
@@ -121,7 +121,7 @@ export const intermediateTest2 = [
       "Vθ ∝ 1/r²",
       "Vθ is independent of r",
     ],
-    correctAnswer: "Vθ ∝ r",
+    answer: "Vθ ∝ r",
     explanation:
       "A forced vortex rotates like a solid body, so Vθ = ωr and tangential velocity increases linearly with radius.",
   },
@@ -135,7 +135,7 @@ export const intermediateTest2 = [
       "Vθ ∝ 1/r",
       "Vθ is constant",
     ],
-    correctAnswer: "Vθ ∝ 1/r",
+    answer: "Vθ ∝ 1/r",
     explanation:
       "In an ideal free vortex, circulation is constant, giving Vθr = constant and therefore Vθ ∝ 1/r.",
   },
@@ -149,7 +149,7 @@ export const intermediateTest2 = [
       "Paraboloid of revolution",
       "Hyperboloid",
     ],
-    correctAnswer: "Paraboloid of revolution",
+    answer: "Paraboloid of revolution",
     explanation:
       "During rigid-body rotation, the free surface satisfies z = ω²r²/(2g) + constant, which is a paraboloid of revolution.",
   },
@@ -163,7 +163,7 @@ export const intermediateTest2 = [
       "Density is always variable",
       "Gravity changes along the pipe",
     ],
-    correctAnswer: "Velocity distribution across a section is non-uniform",
+    answer: "Velocity distribution across a section is non-uniform",
     explanation:
       "The kinetic energy correction factor accounts for the difference between actual kinetic energy flux and that calculated using average velocity.",
   },
@@ -172,7 +172,7 @@ export const intermediateTest2 = [
     question:
       "For fully developed laminar flow in a circular pipe, the kinetic energy correction factor α is:",
     options: ["1", "4/3", "2", "3"],
-    correctAnswer: "2",
+    answer: "2",
     explanation:
       "For the parabolic velocity profile of fully developed laminar pipe flow, the kinetic energy correction factor is α = 2.",
   },
@@ -181,7 +181,7 @@ export const intermediateTest2 = [
     question:
       "For fully developed laminar flow in a circular pipe, the momentum correction factor β is:",
     options: ["1", "4/3", "2", "8/3"],
-    correctAnswer: "4/3",
+    answer: "4/3",
     explanation:
       "For a parabolic laminar velocity profile in a circular pipe, the momentum correction factor is β = 4/3.",
   },
@@ -195,7 +195,7 @@ export const intermediateTest2 = [
       "z + V²/2g",
       "p/ρg + V²/2g only",
     ],
-    correctAnswer: "z + p/ρg",
+    answer: "z + p/ρg",
     explanation:
       "The hydraulic grade line is the locus of piezometric head, equal to elevation head plus pressure head.",
   },
@@ -209,7 +209,7 @@ export const intermediateTest2 = [
       "Velocity head",
       "Head loss",
     ],
-    correctAnswer: "Velocity head",
+    answer: "Velocity head",
     explanation:
       "The energy grade line includes velocity head while the hydraulic grade line does not, so their separation is V²/(2g).",
   },
@@ -223,7 +223,7 @@ export const intermediateTest2 = [
       "Remains horizontal",
       "Coincides with pipe centerline",
     ],
-    correctAnswer: "Falls in the flow direction",
+    answer: "Falls in the flow direction",
     explanation:
       "Mechanical energy decreases along the direction of real fluid flow because of frictional losses.",
   },
@@ -237,7 +237,7 @@ export const intermediateTest2 = [
       "(L/D)(V/g)",
       "f(L/D)(V/g)",
     ],
-    correctAnswer: "f(L/D)(V²/2g)",
+    answer: "f(L/D)(V²/2g)",
     explanation:
       "The Darcy-Weisbach equation is hf = f(L/D)(V²/2g), where f is the Darcy friction factor.",
   },
@@ -251,7 +251,7 @@ export const intermediateTest2 = [
       "Fluid pressure only",
       "Elevation only",
     ],
-    correctAnswer: "Reynolds number",
+    answer: "Reynolds number",
     explanation:
       "For a hydraulically smooth pipe, roughness effects are negligible and the friction factor is primarily governed by Reynolds number.",
   },
@@ -265,7 +265,7 @@ export const intermediateTest2 = [
       "Pipe diameter",
       "Wall roughness",
     ],
-    correctAnswer: "Reynolds number",
+    answer: "Reynolds number",
     explanation:
       "At sufficiently high Reynolds number in the fully rough regime, friction factor depends mainly on relative roughness and is nearly independent of Reynolds number.",
   },
@@ -279,7 +279,7 @@ export const intermediateTest2 = [
       "Surface tension",
       "Bulk modulus",
     ],
-    correctAnswer: "Turbulent pipe friction factor",
+    answer: "Turbulent pipe friction factor",
     explanation:
       "The Colebrook equation relates Darcy friction factor to Reynolds number and relative roughness for turbulent pipe flow.",
   },
@@ -293,7 +293,7 @@ export const intermediateTest2 = [
       "V₁V₂/(2g)",
       "(V₁² - V₂²)/g",
     ],
-    correctAnswer: "(V₁ - V₂)²/(2g)",
+    answer: "(V₁ - V₂)²/(2g)",
     explanation:
       "The Borda-Carnot relation gives the head loss due to sudden expansion as hL = (V₁ - V₂)²/(2g).",
   },
@@ -307,7 +307,7 @@ export const intermediateTest2 = [
       "Head loss",
       "Diameter",
     ],
-    correctAnswer: "Discharge",
+    answer: "Discharge",
     explanation:
       "For steady incompressible flow through pipes in series without branching, the same discharge passes through every pipe.",
   },
@@ -321,7 +321,7 @@ export const intermediateTest2 = [
       "The same for every branch",
       "Proportional only to pipe diameter",
     ],
-    correctAnswer: "The same for every branch",
+    answer: "The same for every branch",
     explanation:
       "All parallel branches share the same upstream and downstream junctions, so the head loss between those junctions is equal for each branch.",
   },
@@ -335,7 +335,7 @@ export const intermediateTest2 = [
       "A larger reservoir",
       "A smaller fluid density",
     ],
-    correctAnswer: "A straight pipe length producing the same head loss",
+    answer: "A straight pipe length producing the same head loss",
     explanation:
       "The equivalent length method represents a fitting or valve by a length of straight pipe having the same frictional head loss.",
   },

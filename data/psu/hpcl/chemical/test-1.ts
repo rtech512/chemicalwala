@@ -2442,78 +2442,75 @@ export const hpclChemicalTest1 = [
   id: 166,
   section: "Chemical Engineering",
   question:
-    "The pinch point in a heat exchanger network represents the location where:",
+    "A first-order irreversible reaction is carried out isothermally in a CSTR. The reactor achieves 50% conversion. If the same reactor volume is used as a PFR under identical feed conditions, the conversion obtained will be closest to:",
   options: [
-    "Heat transfer coefficient is maximum",
-    "The temperature difference between hot and cold streams is minimum",
-    "Pressure drop is maximum",
-    "Fluid velocity is zero",
+    "50%",
+    "63%",
+    "69%",
+    "75%",
   ],
-  correctAnswer:
-    "The temperature difference between hot and cold streams is minimum",
+  correctAnswer: "63%",
   explanation:
-    "The pinch point is the minimum temperature approach in a heat exchanger network and is the basis of pinch analysis.",
+    "For a CSTR:\nX = kτ/(1+kτ)\n\nGiven X = 0.5,\nkτ = X/(1−X) = 0.5/0.5 = 1.\n\nFor a PFR:\nX = 1 − exp(−kτ)\n= 1 − exp(−1)\n= 1 − 0.3679\n= 0.632 ≈ 63%.\n\nHence, the correct answer is 63%.",
 },
 {
   id: 167,
   section: "Chemical Engineering",
   question:
-    "In a shell-and-tube heat exchanger, fouling on the heat transfer surface generally causes:",
+    "A shell-and-tube heat exchanger has an overall heat-transfer coefficient of 500 W/m²·K and a heat-transfer area of 40 m². Due to fouling, the overall coefficient decreases by 20%. Assuming the LMTD remains unchanged, the percentage reduction in heat-transfer rate is:",
   options: [
-    "Increase in overall heat transfer coefficient",
-    "Decrease in overall heat transfer coefficient",
-    "Increase in thermal conductivity",
-    "No effect on heat transfer",
+    "10%",
+    "16%",
+    "20%",
+    "25%",
   ],
-  correctAnswer: "Decrease in overall heat transfer coefficient",
+  correctAnswer: "20%",
   explanation:
-    "Fouling introduces additional thermal resistance, reducing the overall heat transfer coefficient.",
+    "The heat-transfer rate is Q = UAΔTlm. Since area and LMTD remain constant, Q is directly proportional to U. Therefore, a 20% reduction in U causes a 20% reduction in heat-transfer rate.",
 },
 {
   id: 168,
   section: "Chemical Engineering",
   question:
-    "The primary objective of a flare system in a chemical plant is to:",
+    "Which of the following statements is correct regarding pressure drop in a packed absorption column?",
   options: [
-    "Recover valuable products",
-    "Safely burn excess combustible gases during emergencies",
-    "Increase reactor pressure",
-    "Reduce cooling water consumption",
+    "Pressure drop decreases continuously with increasing gas velocity.",
+    "Pressure drop is independent of liquid flow rate.",
+    "Near flooding, pressure drop rises sharply with gas velocity.",
+    "Pressure drop becomes zero at the loading point.",
   ],
-  correctAnswer:
-    "Safely burn excess combustible gases during emergencies",
+  correctAnswer: "Near flooding, pressure drop rises sharply with gas velocity.",
   explanation:
-    "A flare system safely disposes of excess hydrocarbons during emergency relief or plant upset conditions.",
+    "As gas velocity approaches the flooding condition, liquid holdup and gas-liquid interaction increase significantly. This causes a sharp increase in pressure drop across the packed column.",
 },
 {
   id: 169,
   section: "Chemical Engineering",
   question:
-    "Which of the following dimensionless numbers is commonly used to correlate natural convection heat transfer?",
+    "A process is represented by the transfer function G(s) = 4/(8s + 1). The steady-state output for a unit-step input is:",
   options: [
-    "Mach number",
-    "Grashof number",
-    "Euler number",
-    "Weber number",
+    "0.5",
+    "1",
+    "4",
+    "8",
   ],
-  correctAnswer: "Grashof number",
+  correctAnswer: "4",
   explanation:
-    "The Grashof number represents the ratio of buoyancy forces to viscous forces and is fundamental in natural convection analysis.",
+    "For a stable process, the steady-state response to a unit-step input equals the steady-state gain G(0). Here, G(0) = 4/(1) = 4.",
 },
 {
   id: 170,
   section: "Chemical Engineering",
   question:
-    "During the startup of a centrifugal pump, the discharge valve is generally kept closed mainly to:",
+    "A binary distillation column is operating at total reflux. Which one of the following statements is true?",
   options: [
-    "Reduce starting power requirement and protect the motor",
-    "Increase the flow rate immediately",
-    "Avoid priming of the pump",
-    "Increase the NPSH required",
+    "The condenser duty becomes zero.",
+    "The number of theoretical stages required is minimum.",
+    "The reflux ratio is zero.",
+    "The distillate flow rate is maximum.",
   ],
-  correctAnswer:
-    "Reduce starting power requirement and protect the motor",
+  correctAnswer: "The number of theoretical stages required is minimum.",
   explanation:
-    "A centrifugal pump is typically started with the discharge valve closed to minimize starting load. The valve is opened gradually after the pump reaches operating speed.",
+    "At total reflux, all condensed overhead vapor is returned to the column and no distillate or bottoms product is withdrawn. This condition requires the minimum number of theoretical stages and corresponds to an infinite reflux ratio.",
 },
-];
+]
