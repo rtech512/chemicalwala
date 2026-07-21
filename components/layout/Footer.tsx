@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -16,18 +17,74 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Quick Links */}
-        <div>
-          <h3 className="mb-5 text-xl font-bold">Quick Links</h3>
+       {/* Quick Links */}
+<div>
+  <h3 className="mb-5 text-xl font-bold">Quick Links</h3>
 
-          <ul className="space-y-3 text-slate-400">
-            <li className="hover:text-cyan-400 cursor-pointer">Home</li>
-            <li className="hover:text-cyan-400 cursor-pointer">Courses</li>
-            <li className="hover:text-cyan-400 cursor-pointer">Notes</li>
-            <li className="hover:text-cyan-400 cursor-pointer">MCQ</li>
-            <li className="hover:text-cyan-400 cursor-pointer">PSU</li>
-          </ul>
-        </div>
+  <ul className="space-y-4">
+    <li>
+      <Link
+        href="/"
+        className="text-slate-400 transition hover:pl-1 hover:text-cyan-400"
+      >
+        Home
+      </Link>
+    </li>
+
+    <li>
+      <Link
+        href="/coming-soon"
+        className="flex w-fit items-center gap-2 text-slate-400 transition hover:pl-1 hover:text-cyan-400"
+      >
+        <span>Process Engineering</span>
+
+        <span className="rounded-full bg-orange-500/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-orange-300">
+          Coming Soon
+        </span>
+      </Link>
+    </li>
+
+    <li>
+      <Link
+        href="/notes"
+        className="flex w-fit items-center gap-2 text-slate-400 transition hover:pl-1 hover:text-cyan-400"
+      >
+        <span>GATE Notes</span>
+
+        <span className="rounded-full bg-orange-500/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-orange-300">
+          Coming Soon
+        </span>
+      </Link>
+    </li>
+
+    <li>
+      <Link
+        href="/mcq"
+        className="text-slate-400 transition hover:pl-1 hover:text-cyan-400"
+      >
+        MCQ
+      </Link>
+    </li>
+
+    <li>
+      <Link
+        href="/mock-test/enroll"
+        className="text-slate-400 transition hover:pl-1 hover:text-cyan-400"
+      >
+        Mock Test
+      </Link>
+    </li>
+
+    <li>
+      <Link
+        href="/psu"
+        className="text-slate-400 transition hover:pl-1 hover:text-cyan-400"
+      >
+        PSU
+      </Link>
+    </li>
+  </ul>
+</div>
 
         {/* Resources */}
         <div>

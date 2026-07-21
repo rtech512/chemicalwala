@@ -14,15 +14,31 @@ import { auth } from "@/lib/firebase";
 
 const links = [
   { name: "Home", href: "/", protected: false },
-  { name: "Courses", href: "/courses", protected: true },
-  { name: "Notes", href: "/notes", protected: true },
-  { name: "MCQ", href: "/mcq", protected: true },
+  {
+  name: "Process Engineering",
+  href: "/coming-soon",
+  protected: false,
+},
+  {
+    name: "GATE Notes",
+    href: "/notes",
+    protected: true,
+  },
+  {
+    name: "MCQ",
+    href: "/mcq",
+    protected: true,
+  },
   {
     name: "Mock Test",
     href: "/mock-test/enroll",
     protected: true,
   },
-  { name: "PSU", href: "/psu", protected: true },
+  {
+    name: "PSU",
+    href: "/psu",
+    protected: true,
+  },
 ];
 
 export default function Navbar() {
