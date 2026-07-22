@@ -13,12 +13,16 @@ import {
 import { auth } from "@/lib/firebase";
 
 const links = [
-  { name: "Home", href: "/", protected: false },
   {
-  name: "Process Engineering",
-  href: "/coming-soon",
-  protected: false,
-},
+    name: "Home",
+    href: "/",
+    protected: false,
+  },
+  {
+    name: "Process Engineering",
+    href: "/coming-soon",
+    protected: true,
+  },
   {
     name: "GATE Notes",
     href: "/notes",
@@ -50,10 +54,13 @@ export default function Navbar() {
   const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setAuthLoading(false);
-    });
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (currentUser) => {
+        setUser(currentUser);
+        setAuthLoading(false);
+      }
+    );
 
     return unsubscribe;
   }, []);
@@ -85,31 +92,40 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
+
       setOpen(false);
-      router.push("/");
+      router.replace("/");
       router.refresh();
     } catch (error) {
       console.error("Logout failed:", error);
     }
   };
 
+  const isActiveLink = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+
+    return pathname.startsWith(href);
+  };
+
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#020817]/90 backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+        {/* Logo */}
         <Link
           href="/"
           onClick={() => setOpen(false)}
           className="text-2xl font-extrabold text-white"
         >
-          Chemical<span className="text-cyan-400">Wala</span>
+          Chemical
+          <span className="text-cyan-400">Wala</span>
         </Link>
 
+        {/* Desktop Navigation */}
         <div className="hidden items-center gap-6 md:flex">
           {links.map((link) => {
-            const active =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href);
+            const active = isActiveLink(link.href);
 
             return (
               <button
@@ -126,7 +142,7 @@ export default function Navbar() {
                   active
                     ? "text-cyan-400"
                     : "text-slate-300 hover:text-cyan-400"
-                } disabled:cursor-wait disabled:opacity-70`}
+                } disabled:cursor-wait disabled:opacity-60`}
               >
                 {link.name}
               </button>
@@ -134,41 +150,47 @@ export default function Navbar() {
           })}
         </div>
 
+        {/* Desktop Auth Buttons */}
         <div className="hidden items-center gap-3 md:flex">
-          {!authLoading &&
-            (user ? (
-              <>
-                <span className="max-w-44 truncate font-semibold text-slate-300">
-                  Hi, {user.displayName || user.email || "User"}
-                </span>
+          {authLoading ? (
+            <div className="h-10 w-28 animate-pulse rounded-xl bg-white/10" />
+          ) : user ? (
+            <>
+              <span className="max-w-44 truncate font-semibold text-slate-300">
+                Hi,{" "}
+                {user.displayName ||
+                  user.email?.split("@")[0] ||
+                  "User"}
+              </span>
 
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="rounded-xl border border-red-400 px-4 py-2 font-bold text-red-300 transition hover:bg-red-400 hover:text-black"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="rounded-xl border border-cyan-400 px-4 py-2 font-bold text-cyan-300 transition hover:bg-cyan-400 hover:text-black"
-                >
-                  Login
-                </Link>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="rounded-xl border border-red-400 px-4 py-2 font-bold text-red-300 transition hover:bg-red-400 hover:text-black"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                className="rounded-xl border border-cyan-400 px-4 py-2 font-bold text-cyan-300 transition hover:bg-cyan-400 hover:text-black"
+              >
+                Login
+              </Link>
 
-                <Link
-                  href="/signup"
-                  className="rounded-xl bg-cyan-400 px-4 py-2 font-bold text-[#071521] transition hover:bg-cyan-300"
-                >
-                  Sign Up
-                </Link>
-              </>
-            ))}
+              <Link
+                href="/signup"
+                className="rounded-xl bg-cyan-400 px-4 py-2 font-bold text-[#071521] transition hover:bg-cyan-300"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
         </div>
 
+        {/* Mobile Menu Button */}
         <button
           type="button"
           onClick={() => setOpen((current) => !current)}
@@ -176,18 +198,20 @@ export default function Navbar() {
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
         >
-          {open ? <X size={22} /> : <Menu size={22} />}
+          {open ? (
+            <X size={22} />
+          ) : (
+            <Menu size={22} />
+          )}
         </button>
       </nav>
 
+      {/* Mobile Navigation */}
       {open && (
         <div className="max-h-[calc(100vh-73px)] overflow-y-auto border-t border-white/10 bg-[#020817] px-5 py-5 md:hidden">
           <div className="flex flex-col gap-4">
             {links.map((link) => {
-              const active =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(link.href);
+              const active = isActiveLink(link.href);
 
               return (
                 <button
@@ -200,64 +224,65 @@ export default function Navbar() {
                     )
                   }
                   disabled={authLoading}
-                  className={`text-left font-semibold transition ${
+                  className={`rounded-lg px-2 py-2 text-left font-semibold transition ${
                     active
-                      ? "text-cyan-400"
-                      : "text-slate-300 hover:text-cyan-400"
-                  } disabled:cursor-wait disabled:opacity-70`}
+                      ? "bg-cyan-400/10 text-cyan-400"
+                      : "text-slate-300 hover:bg-white/5 hover:text-cyan-400"
+                  } disabled:cursor-wait disabled:opacity-60`}
                 >
                   {link.name}
                 </button>
               );
             })}
 
-            {!authLoading &&
-              (user ? (
-                <div className="mt-2 space-y-3">
-                  <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center">
-                    <p className="text-sm text-slate-400">
-                      Logged in as
-                    </p>
+            {authLoading ? (
+              <div className="mt-2 h-20 animate-pulse rounded-xl bg-white/10" />
+            ) : user ? (
+              <div className="mt-2 space-y-3">
+                <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center">
+                  <p className="text-sm text-slate-400">
+                    Logged in as
+                  </p>
 
-                    <p className="mt-1 break-all font-bold text-white">
-                      {user.displayName ||
-                        user.email ||
-                        "User"}
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={handleLogout}
-                    className="w-full rounded-xl border border-red-400 px-4 py-3 text-center font-bold text-red-300 transition hover:bg-red-400 hover:text-black"
-                  >
-                    Logout
-                  </button>
+                  <p className="mt-1 break-all font-bold text-white">
+                    {user.displayName ||
+                      user.email ||
+                      "User"}
+                  </p>
                 </div>
-              ) : (
-                <div className="mt-2 grid grid-cols-2 gap-3">
-                  <Link
-                    href="/login"
-                    onClick={() => setOpen(false)}
-                    className="rounded-xl border border-cyan-400 px-4 py-3 text-center font-bold text-cyan-300"
-                  >
-                    Login
-                  </Link>
 
-                  <Link
-                    href="/signup"
-                    onClick={() => setOpen(false)}
-                    className="rounded-xl bg-cyan-400 px-4 py-3 text-center font-bold text-[#071521]"
-                  >
-                    Sign Up
-                  </Link>
-                </div>
-              ))}
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="w-full rounded-xl border border-red-400 px-4 py-3 text-center font-bold text-red-300 transition hover:bg-red-400 hover:text-black"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="mt-2 grid grid-cols-2 gap-3">
+                <Link
+                  href="/login"
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl border border-cyan-400 px-4 py-3 text-center font-bold text-cyan-300"
+                >
+                  Login
+                </Link>
+
+                <Link
+                  href="/signup"
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl bg-cyan-400 px-4 py-3 text-center font-bold text-[#071521]"
+                >
+                  Sign Up
+                </Link>
+              </div>
+            )}
 
             <Link
               href="/contact"
               onClick={() => setOpen(false)}
-              className="rounded-xl border border-white/20 px-5 py-3 text-center font-bold text-slate-300"
+              className="rounded-xl border border-white/20 px-5 py-3 text-center font-bold text-slate-300 transition hover:border-cyan-400 hover:text-cyan-300"
             >
               Contact Us
             </Link>

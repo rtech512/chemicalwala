@@ -9,7 +9,7 @@ import Founder from "@/components/home/Founder";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#020817] text-white">
+    <main className="min-h-screen overflow-x-hidden bg-[#020817] text-white">
       <Navbar />
       <Hero />
       <FeatureCards />

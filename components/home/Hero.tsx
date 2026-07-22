@@ -2,123 +2,35 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
 import {
   ArrowRight,
   Award,
   BookOpen,
   FileText,
-  FlaskConical,
   Gauge,
   Sparkles,
-  Trophy,
 } from "lucide-react";
 
 const particles = [
-  { left: "4%", top: "20%", size: 5, duration: 8, delay: 0 },
-  { left: "10%", top: "65%", size: 4, duration: 10, delay: 1.1 },
-  { left: "18%", top: "34%", size: 7, duration: 9, delay: 0.6 },
-  { left: "27%", top: "75%", size: 5, duration: 11, delay: 1.8 },
-  { left: "35%", top: "15%", size: 4, duration: 8.5, delay: 0.4 },
-  { left: "46%", top: "80%", size: 6, duration: 10.5, delay: 1.3 },
-  { left: "58%", top: "24%", size: 5, duration: 9.5, delay: 0.8 },
-  { left: "69%", top: "72%", size: 7, duration: 11.5, delay: 2 },
-  { left: "78%", top: "18%", size: 4, duration: 8.8, delay: 1.2 },
-  { left: "86%", top: "62%", size: 6, duration: 10.8, delay: 0.5 },
-  { left: "93%", top: "29%", size: 5, duration: 9.8, delay: 1.5 },
-];
-
-const moleculeNodes = [
-  { cx: 34, cy: 42, r: 8 },
-  { cx: 75, cy: 22, r: 5 },
-  { cx: 93, cy: 64, r: 7 },
-  { cx: 52, cy: 92, r: 5 },
-];
-
-const stats = [
-  {
-    icon: BookOpen,
-    number: "500+",
-    title: "Study Notes",
-    description: "Exam-focused resources",
-  },
-  {
-    icon: FileText,
-    number: "5,000+",
-    title: "Practice MCQs",
-    description: "Detailed explanations",
-  },
-  {
-    icon: Trophy,
-    number: "100+",
-    title: "Mock Tests",
-    description: "GATE and PSU pattern",
-  },
-  {
-    icon: Award,
-    number: "6×",
-    title: "GATE Qualified",
-    description: "Built from experience",
-  },
+  { left: "7%", top: "18%", size: 4, duration: 8, delay: 0 },
+  { left: "18%", top: "72%", size: 3, duration: 10, delay: 1.1 },
+  { left: "36%", top: "30%", size: 5, duration: 9, delay: 0.6 },
+  { left: "58%", top: "78%", size: 4, duration: 11, delay: 1.8 },
+  { left: "78%", top: "20%", size: 4, duration: 8.5, delay: 0.4 },
+  { left: "92%", top: "64%", size: 4, duration: 10.5, delay: 1.3 },
 ];
 
 export default function Hero() {
-  const [mounted, setMounted] = useState(false);
-
-useEffect(() => {
-  setMounted(true);
-}, []);
   return (
-    <section 
-    suppressHydrationWarning
-    className="relative isolate overflow-hidden bg-[#020817] text-white">
-      {/* Base background */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(14,165,233,0.12),transparent_32%),radial-gradient(circle_at_15%_70%,rgba(37,99,235,0.16),transparent_34%),radial-gradient(circle_at_85%_65%,rgba(6,182,212,0.12),transparent_30%),linear-gradient(to_bottom,#020817_0%,#03101d_52%,#020817_100%)]" />
+    <section className="relative isolate overflow-hidden bg-[#020817] px-4 py-5 text-white sm:px-6 lg:px-8 lg:py-7">
+      {/* Page background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_76%_12%,rgba(186,230,253,0.16),transparent_26%),radial-gradient(circle_at_12%_72%,rgba(37,99,235,0.12),transparent_34%),linear-gradient(to_bottom,#020817_0%,#041426_54%,#020817_100%)]" />
 
-      {/* Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(34,211,238,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.045)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:linear-gradient(to_bottom,black,transparent_95%)]" />
-
-      {/* Moving scan line */}
-      {mounted && (
+      {/* Moving grid */}
       <motion.div
-        animate={{ y: ["-10%", "110%"] }}
-        transition={{
-          duration: 9,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-        className="pointer-events-none absolute inset-x-0 h-40 bg-gradient-to-b from-transparent via-cyan-300/[0.035] to-transparent"
-      />
-      )}
-
-      {/* Large ambient glows */}
-      <motion.div
-        animate={{
-          x: [0, 100, 0],
-          y: [0, -50, 0],
-          scale: [1, 1.16, 1],
-        }}
-        transition={{
-          duration: 17,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="pointer-events-none absolute -left-32 top-20 h-[430px] w-[430px] rounded-full bg-cyan-500/10 blur-[125px]"
-      />
-
-      <motion.div
-        animate={{
-          x: [0, -90, 0],
-          y: [0, 55, 0],
-          scale: [1, 1.12, 1],
-        }}
-        transition={{
-          duration: 21,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="pointer-events-none absolute -right-36 bottom-10 h-[480px] w-[480px] rounded-full bg-blue-600/10 blur-[145px]"
+        animate={{ backgroundPosition: ["0px 0px", "120px 120px"] }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0 bg-[linear-gradient(rgba(34,211,238,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.035)_1px,transparent_1px)] bg-[size:60px_60px]"
       />
 
       {/* Floating particles */}
@@ -133,10 +45,10 @@ useEffect(() => {
               height: particle.size,
             }}
             animate={{
-              y: [0, -34, 0],
-              x: [0, 8, 0],
-              opacity: [0.18, 0.85, 0.18],
-              scale: [1, 1.4, 1],
+              y: [0, -26, 0],
+              x: [0, 6, 0],
+              opacity: [0.1, 0.55, 0.1],
+              scale: [1, 1.25, 1],
             }}
             transition={{
               duration: particle.duration,
@@ -144,216 +56,46 @@ useEffect(() => {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute rounded-full bg-cyan-300 shadow-[0_0_18px_rgba(103,232,249,0.9)]"
+            className="absolute rounded-full bg-cyan-300 shadow-[0_0_14px_rgba(103,232,249,0.75)]"
           />
         ))}
       </div>
 
-      {/* Animated pipeline across hero */}
-      <div className="pointer-events-none absolute left-0 right-0 top-[73%] hidden h-20 lg:block">
-        <div className="absolute left-0 right-0 top-9 h-[3px] bg-cyan-400/10" />
-
-        <motion.div
-          animate={{ x: ["-10vw", "110vw"] }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          className="absolute top-[31px] h-4 w-28 rounded-full bg-gradient-to-r from-transparent via-cyan-300 to-transparent blur-[1px]"
-        />
-
-        {[18, 38, 58, 78].map((position) => (
-          <div
-            key={position}
-            style={{ left: `${position}%` }}
-            className="absolute top-[25px] h-8 w-8 -translate-x-1/2 rounded-lg border border-cyan-400/20 bg-[#041427]/90"
-          >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="m-auto mt-[7px] h-4 w-4 rounded-full border border-cyan-300/50"
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* Main hero */}
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-8 px-5 pb-12 pt-8 sm:px-6 sm:pb-16 sm:pt-10 lg:min-h-[calc(100vh-73px)] lg:grid-cols-[1.02fr_0.98fr] lg:px-8 lg:py-10">
-        {/* Text */}
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.72 }}
-          className="mx-auto max-w-3xl text-center lg:mx-0 lg:text-left"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.12 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/35 bg-cyan-400/[0.08] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.13em] text-cyan-200 shadow-[0_0_35px_rgba(34,211,238,0.08)] backdrop-blur-xl sm:px-5 sm:text-xs"
-          >
-            <Sparkles className="h-4 w-4 shrink-0" />
-            India&apos;s Chemical Engineering Learning Platform
-          </motion.div>
-
-          <h1 className="text-balance text-5xl font-black leading-[0.96] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[5.35rem]">
-            Master Chemical
-            <span className="mt-2 block bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-500 bg-clip-text text-transparent">
-              Engineering
-            </span>
-          </h1>
-
-          <p className="mx-auto mt-7 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg lg:mx-0 lg:text-xl">
-            Prepare with subject-wise notes, MCQ practice, PSU mock tests,
-            previous-year questions and formula sheets—all in one focused
-            learning platform.
-          </p>
-
-          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
-            <Link
-              href="/mock-test"
-              className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-600 px-7 py-4 font-black text-[#03101b] shadow-xl shadow-cyan-950/30 transition duration-300 hover:-translate-y-1 hover:from-cyan-300 hover:to-blue-500"
-            >
-              <BookOpen className="h-5 w-5" />
-              Start Learning
-              <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-
-            <Link
-              href="/notes"
-              className="inline-flex min-h-14 items-center justify-center gap-3 rounded-2xl border border-cyan-400/40 bg-white/[0.055] px-7 py-4 font-black text-white backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-cyan-300/70 hover:bg-white/[0.1]"
-            >
-              <FileText className="h-5 w-5 text-cyan-300" />
-              Free Notes
-            </Link>
-          </div>
-
-          <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-semibold text-slate-300 lg:justify-start">
-            <span className="inline-flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(74,222,128,0.85)]" />
-              100+ Students
-            </span>
-
-            <span className="inline-flex items-center gap-2">
-              <Award className="h-4 w-4 text-cyan-300" />
-              6× GATE Qualified
-            </span>
-
-            <span className="inline-flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-blue-400 shadow-[0_0_12px_rgba(96,165,250,0.85)]" />
-              GATE & PSU Focused
-            </span>
-          </div>
-        </motion.div>
-
-        {/* Code-generated industrial visual */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.85, delay: 0.08 }}
-          className="relative mx-auto hidden min-h-[580px] w-full max-w-[650px] lg:block"
-        >
-          {/* Background glass panel */}
-          <div className="absolute inset-4 rounded-[2.6rem] border border-cyan-400/10 bg-gradient-to-br from-cyan-400/[0.035] via-[#03101d]/60 to-blue-500/[0.035] backdrop-blur-sm" />
-
-          {/* Molecular structure */}
-          <motion.svg
-            viewBox="0 0 120 120"
-            animate={{ rotate: 360 }}
-            transition={{
-              duration: 34,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute left-10 top-14 h-52 w-52 opacity-65"
-          >
-            <line
-              x1="34"
-              y1="42"
-              x2="75"
-              y2="22"
-              stroke="rgba(34,211,238,0.38)"
-              strokeWidth="1"
-            />
-            <line
-              x1="75"
-              y1="22"
-              x2="93"
-              y2="64"
-              stroke="rgba(34,211,238,0.38)"
-              strokeWidth="1"
-            />
-            <line
-              x1="93"
-              y1="64"
-              x2="52"
-              y2="92"
-              stroke="rgba(34,211,238,0.38)"
-              strokeWidth="1"
-            />
-            <line
-              x1="52"
-              y1="92"
-              x2="34"
-              y2="42"
-              stroke="rgba(34,211,238,0.38)"
-              strokeWidth="1"
-            />
-            <line
-              x1="34"
-              y1="42"
-              x2="93"
-              y2="64"
-              stroke="rgba(59,130,246,0.28)"
-              strokeWidth="1"
-            />
-
-            {moleculeNodes.map((node, index) => (
-              <circle
-                key={index}
-                cx={node.cx}
-                cy={node.cy}
-                r={node.r}
-                fill={
-                  index % 2 === 0
-                    ? "rgba(34,211,238,0.28)"
-                    : "rgba(96,165,250,0.28)"
-                }
-                stroke="rgba(103,232,249,0.65)"
-                strokeWidth="1"
-              />
-            ))}
-          </motion.svg>
-
-          {/* Industrial plant SVG */}
+      {/* Main glass hero */}
+      <div className="relative z-10 mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.025] shadow-[0_30px_90px_rgba(0,0,0,0.46)]">
+        {/* Background plant */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <motion.svg
             viewBox="0 0 620 520"
-            animate={{ y: [0, -7, 0] }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute bottom-4 right-1 h-[510px] w-[610px]"
+            animate={{ y: [0, -6, 0], x: [0, 4, 0] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute right-[-220px] top-1/2 h-[720px] w-[900px] -translate-y-1/2 opacity-30 sm:right-[-120px] sm:opacity-42 lg:right-[-20px] lg:opacity-68"
           >
             <defs>
-              <linearGradient id="towerFill" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="rgba(34,211,238,0.24)" />
-                <stop offset="55%" stopColor="rgba(15,23,42,0.76)" />
-                <stop offset="100%" stopColor="rgba(59,130,246,0.19)" />
+              <linearGradient
+                id="towerFillBalanced"
+                x1="0"
+                y1="0"
+                x2="1"
+                y2="1"
+              >
+                <stop offset="0%" stopColor="rgba(34,211,238,0.34)" />
+                <stop offset="55%" stopColor="rgba(15,23,42,0.72)" />
+                <stop offset="100%" stopColor="rgba(59,130,246,0.28)" />
               </linearGradient>
 
-              <linearGradient id="pipeFill" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="rgba(34,211,238,0.45)" />
-                <stop offset="100%" stopColor="rgba(59,130,246,0.18)" />
+              <linearGradient
+                id="pipeFillBalanced"
+                x1="0"
+                y1="0"
+                x2="1"
+                y2="0"
+              >
+                <stop offset="0%" stopColor="rgba(34,211,238,0.62)" />
+                <stop offset="100%" stopColor="rgba(59,130,246,0.30)" />
               </linearGradient>
 
-              <filter id="glow">
+              <filter id="glowBalanced">
                 <feGaussianBlur stdDeviation="4" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
@@ -362,22 +104,20 @@ useEffect(() => {
               </filter>
             </defs>
 
-            {/* Ground */}
             <path
               d="M25 470 H595"
-              stroke="rgba(34,211,238,0.32)"
+              stroke="rgba(34,211,238,0.36)"
               strokeWidth="2"
             />
 
-            {/* Main distillation tower */}
             <rect
               x="355"
               y="95"
               width="72"
               height="365"
               rx="24"
-              fill="url(#towerFill)"
-              stroke="rgba(103,232,249,0.55)"
+              fill="url(#towerFillBalanced)"
+              stroke="rgba(103,232,249,0.72)"
               strokeWidth="2"
             />
 
@@ -387,14 +127,14 @@ useEffect(() => {
               width="38"
               height="52"
               rx="8"
-              fill="rgba(34,211,238,0.1)"
-              stroke="rgba(103,232,249,0.5)"
+              fill="rgba(34,211,238,0.12)"
+              stroke="rgba(103,232,249,0.62)"
             />
 
             <path
               d="M380 52 L391 26 L402 52"
               fill="none"
-              stroke="rgba(103,232,249,0.65)"
+              stroke="rgba(103,232,249,0.76)"
               strokeWidth="2"
             />
 
@@ -406,35 +146,36 @@ useEffect(() => {
                   width="98"
                   height="10"
                   rx="5"
-                  fill="rgba(34,211,238,0.16)"
-                  stroke="rgba(103,232,249,0.42)"
+                  fill="rgba(34,211,238,0.20)"
+                  stroke="rgba(103,232,249,0.50)"
                 />
+
                 <line
                   x1="348"
                   y1={y + 10}
                   x2="348"
                   y2={y + 29}
-                  stroke="rgba(103,232,249,0.35)"
+                  stroke="rgba(103,232,249,0.40)"
                 />
+
                 <line
                   x1="434"
                   y1={y + 10}
                   x2="434"
                   y2={y + 29}
-                  stroke="rgba(103,232,249,0.35)"
+                  stroke="rgba(103,232,249,0.40)"
                 />
               </g>
             ))}
 
-            {/* Reactor vessel */}
             <rect
               x="120"
               y="270"
               width="125"
               height="165"
               rx="48"
-              fill="url(#towerFill)"
-              stroke="rgba(103,232,249,0.48)"
+              fill="url(#towerFillBalanced)"
+              stroke="rgba(103,232,249,0.60)"
               strokeWidth="2"
             />
 
@@ -444,8 +185,8 @@ useEffect(() => {
               width="55"
               height="40"
               rx="10"
-              fill="rgba(34,211,238,0.1)"
-              stroke="rgba(103,232,249,0.45)"
+              fill="rgba(34,211,238,0.12)"
+              stroke="rgba(103,232,249,0.52)"
             />
 
             <line
@@ -453,27 +194,25 @@ useEffect(() => {
               y1="238"
               x2="182"
               y2="205"
-              stroke="rgba(103,232,249,0.45)"
+              stroke="rgba(103,232,249,0.52)"
               strokeWidth="5"
             />
 
-            {/* Secondary tank */}
             <rect
               x="470"
               y="330"
               width="105"
               height="105"
               rx="28"
-              fill="url(#towerFill)"
-              stroke="rgba(96,165,250,0.45)"
+              fill="url(#towerFillBalanced)"
+              stroke="rgba(96,165,250,0.55)"
               strokeWidth="2"
             />
 
-            {/* Pipe network */}
             <path
               d="M245 315 H310 V175 H355"
               fill="none"
-              stroke="url(#pipeFill)"
+              stroke="url(#pipeFillBalanced)"
               strokeWidth="9"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -482,7 +221,7 @@ useEffect(() => {
             <path
               d="M427 295 H500 V330"
               fill="none"
-              stroke="url(#pipeFill)"
+              stroke="url(#pipeFillBalanced)"
               strokeWidth="9"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -491,25 +230,24 @@ useEffect(() => {
             <path
               d="M182 435 V465 H500 V435"
               fill="none"
-              stroke="rgba(34,211,238,0.24)"
+              stroke="rgba(34,211,238,0.30)"
               strokeWidth="8"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
 
-            {/* Valves */}
             <g transform="translate(290 310)">
               <circle
                 cx="0"
                 cy="0"
                 r="15"
                 fill="#03101d"
-                stroke="rgba(103,232,249,0.65)"
+                stroke="rgba(103,232,249,0.74)"
                 strokeWidth="2"
               />
               <path
                 d="M-8 -8 L8 8 M8 -8 L-8 8"
-                stroke="rgba(103,232,249,0.65)"
+                stroke="rgba(103,232,249,0.74)"
                 strokeWidth="2"
               />
             </g>
@@ -520,17 +258,16 @@ useEffect(() => {
                 cy="0"
                 r="14"
                 fill="#03101d"
-                stroke="rgba(96,165,250,0.65)"
+                stroke="rgba(96,165,250,0.74)"
                 strokeWidth="2"
               />
               <path
                 d="M-7 -7 L7 7 M7 -7 L-7 7"
-                stroke="rgba(96,165,250,0.65)"
+                stroke="rgba(96,165,250,0.74)"
                 strokeWidth="2"
               />
             </g>
 
-            {/* Liquid levels */}
             <motion.rect
               animate={{
                 height: [55, 100, 55],
@@ -546,10 +283,9 @@ useEffect(() => {
               width="103"
               height="55"
               rx="24"
-              fill="rgba(34,211,238,0.11)"
+              fill="rgba(34,211,238,0.15)"
             />
 
-            {/* Flow indicators */}
             <motion.circle
               animate={{ cx: [250, 350] }}
               transition={{
@@ -561,7 +297,7 @@ useEffect(() => {
               cy="315"
               r="5"
               fill="rgb(103,232,249)"
-              filter="url(#glow)"
+              filter="url(#glowBalanced)"
             />
 
             <motion.circle
@@ -575,160 +311,127 @@ useEffect(() => {
               cy="295"
               r="5"
               fill="rgb(96,165,250)"
-              filter="url(#glow)"
+              filter="url(#glowBalanced)"
             />
           </motion.svg>
 
-          {/* Steam */}
-          {[0, 1, 2].map((item) => (
-            <motion.div
-              key={item}
-              initial={{
-                opacity: 0,
-                scale: 0.7,
-                x: item * 16,
-              }}
-              animate={{
-                opacity: [0, 0.35, 0],
-                y: [0, -90],
-                x: [item * 16, item * 16 + 20],
-                scale: [0.7, 1.5],
-              }}
-              transition={{
-                duration: 4.5,
-                delay: item * 1.3,
-                repeat: Infinity,
-                ease: "easeOut",
-              }}
-              className="absolute right-[31%] top-[5%] h-16 w-16 rounded-full bg-cyan-100/10 blur-xl"
-            />
-          ))}
+          {/* Balanced cinematic overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/72 via-[#020817]/48 to-[#020817]/5" />
 
-          {/* Process status card */}
-          <motion.div
-            animate={{ y: [0, -9, 0] }}
-            transition={{
-              duration: 5.2,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute right-7 top-24 rounded-2xl border border-cyan-400/20 bg-[#041326]/80 px-5 py-4 shadow-2xl shadow-black/30 backdrop-blur-xl"
-          >
-            <div className="flex items-center gap-3">
-              <span className="relative flex h-3 w-3">
-                <span className="absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                <span className="relative h-3 w-3 rounded-full bg-emerald-400" />
+          {/* Soft glass highlight */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_12%,rgba(255,255,255,0.18),transparent_28%)]" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 flex min-h-[560px] items-center px-6 py-10 sm:px-10 lg:min-h-[590px] lg:px-14">
+          <div className="max-w-[760px]">
+            {/* Top badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="-mt-3 mb-7 inline-flex items-center gap-2 rounded-full bg-cyan-400 px-5 py-3 text-[10px] font-black uppercase tracking-[0.17em] text-[#03101b] shadow-[0_14px_40px_rgba(34,211,238,0.35)] transition duration-300 hover:bg-cyan-300 hover:shadow-[0_18px_48px_rgba(34,211,238,0.48)] sm:text-xs"
+            >
+              <Sparkles className="h-4 w-4 text-[#03101b]" />
+              India&apos;s Chemical Engineering Learning Platform
+            </motion.div>
+
+            {/* Main heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.72 }}
+              className="text-balance text-5xl font-extrabold leading-[0.95] tracking-[-0.035em] text-white sm:text-6xl md:text-7xl lg:text-[5rem]"
+            >
+              Master Chemical
+
+              <span className="mt-2 block bg-gradient-to-r from-cyan-200 via-sky-300 to-blue-400 bg-clip-text font-black text-transparent">
+                Engineering
+              </span>
+            </motion.h1>
+
+            {/* Accent line */}
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "15rem" }}
+              transition={{ duration: 0.8, delay: 0.25 }}
+              className="mt-6 h-[3px] max-w-full bg-gradient-to-r from-cyan-300 via-sky-300 to-transparent"
+            />
+
+            <p className="mt-6 max-w-2xl text-base leading-7 text-white/80 sm:text-lg">
+              Prepare with subject-wise notes, MCQ practice, PSU mock tests,
+              previous-year questions and formula sheets—all in one focused
+              learning platform.
+            </p>
+
+            {/* CTA buttons */}
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Link
+                href="/mock-test"
+                className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 px-7 py-4 font-black text-[#03101b] shadow-[0_18px_50px_rgba(34,211,238,0.34)] transition duration-300 hover:-translate-y-1 hover:scale-[1.02]"
+              >
+                <BookOpen className="h-5 w-5" />
+
+                Start Learning
+
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Link>
+
+              <Link
+                href="/notes"
+                className="group inline-flex min-h-14 items-center justify-center gap-3 rounded-full border border-cyan-300/35 bg-gradient-to-r from-cyan-400/18 via-sky-400/12 to-blue-500/18 px-7 py-4 font-black text-cyan-50 shadow-[0_14px_35px_rgba(34,211,238,0.12)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:bg-cyan-300/20"
+              >
+                <FileText className="h-5 w-5" />
+
+                Free Notes
+
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+
+            {/* Small stats */}
+            <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-white/72">
+              <span className="inline-flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(74,222,128,0.85)]" />
+                100+ Students
               </span>
 
-              <div>
-                <p className="text-xs font-semibold text-slate-400">
-                  Platform Status
-                </p>
-                <p className="mt-0.5 font-black text-white">Learning Online</p>
-              </div>
+              <span className="inline-flex items-center gap-2">
+                <Award className="h-4 w-4 text-cyan-200" />
+                6× GATE Qualified
+              </span>
+
+              <span className="inline-flex items-center gap-2">
+                <Gauge className="h-4 w-4 text-blue-300" />
+                GATE & PSU Focused
+              </span>
             </div>
-          </motion.div>
+          </div>
+        </div>
 
-          {/* Process parameter card */}
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute bottom-28 left-6 rounded-2xl border border-blue-400/20 bg-[#041326]/80 p-4 shadow-2xl shadow-black/30 backdrop-blur-xl"
-          >
-            <div className="flex items-center gap-3">
-              <div className="rounded-xl bg-blue-500/10 p-2.5">
-                <Gauge className="h-5 w-5 text-blue-300" />
-              </div>
+        {/* Platform status */}
+        <motion.div
+          animate={{ y: [0, -7, 0] }}
+          transition={{
+            duration: 5.2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute right-6 top-6 hidden rounded-2xl border border-cyan-300/30 bg-gradient-to-r from-cyan-400/20 via-sky-400/15 to-blue-500/20 px-5 py-4 shadow-[0_16px_40px_rgba(34,211,238,0.16)] backdrop-blur-xl md:block"
+        >
+          <div className="flex items-center gap-3">
+            <span className="relative flex h-3 w-3">
+              <span className="absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative h-3 w-3 rounded-full bg-emerald-400" />
+            </span>
 
-              <div>
-                <p className="text-xs text-slate-400">Preparation Mode</p>
-                <p className="font-black text-white">GATE + PSU</p>
-              </div>
+            <div>
+              <p className="text-xs text-cyan-50/60">Platform Status</p>
+              <p className="font-black text-white">Learning Online</p>
             </div>
-          </motion.div>
-
-          {/* Flask card */}
-          <motion.div
-            animate={{
-              rotate: [-2, 2, -2],
-              y: [0, -5, 0],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute left-[34%] top-12 rounded-2xl border border-cyan-400/15 bg-cyan-400/[0.055] p-3 text-cyan-300 backdrop-blur-xl"
-          >
-            <FlaskConical className="h-7 w-7" />
-          </motion.div>
-
-          {/* Left edge fade */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#020817] via-transparent to-transparent" />
+          </div>
         </motion.div>
       </div>
-
-      {/* Stats */}
-      <div className="relative z-20 mx-auto mt-10 max-w-7xl px-5 pb-16 sm:mt-12 sm:px-6 lg:mt-16 lg:px-8">
-        <div className="grid overflow-hidden rounded-3xl border border-cyan-400/20 bg-[#030b1a]/80 shadow-2xl shadow-cyan-950/20 backdrop-blur-xl sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat, index) => (
-            <Stat
-              key={stat.title}
-              icon={<stat.icon className="h-6 w-6" />}
-              number={stat.number}
-              title={stat.title}
-              description={stat.description}
-              index={index}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#020817] to-transparent" />
     </section>
-  );
-}
-
-function Stat({
-  icon,
-  number,
-  title,
-  description,
-  index,
-}: {
-  icon: ReactNode;
-  number: string;
-  title: string;
-  description: string;
-  index: number;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.35 }}
-      transition={{ delay: index * 0.07 }}
-      className={`group flex items-center gap-4 p-5 transition duration-300 hover:bg-cyan-400/[0.04] sm:p-6 ${
-        index < 3
-          ? "border-b border-cyan-400/15 sm:border-r lg:border-b-0"
-          : ""
-      }`}
-    >
-      <div className="rounded-2xl border border-cyan-400/15 bg-cyan-400/10 p-3.5 text-cyan-300 transition duration-300 group-hover:scale-105 group-hover:bg-cyan-400/15">
-        {icon}
-      </div>
-
-      <div>
-        <h3 className="text-3xl font-black text-cyan-300 sm:text-4xl">
-          {number}
-        </h3>
-        <p className="mt-1 font-black text-white">{title}</p>
-        <p className="mt-1 text-xs text-slate-400">{description}</p>
-      </div>
-    </motion.div>
   );
 }
